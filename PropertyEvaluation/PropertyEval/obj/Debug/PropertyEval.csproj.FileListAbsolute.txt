@@ -31,3 +31,6 @@ C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\Propert
 C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\obj\Debug\PropertyEval.csprojResolveAssemblyReference.cache
 C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\obj\Debug\PropertyEval.dll
 C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\obj\Debug\PropertyEval.pdb
+C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\bin\Newtonsoft.Json.dll
+C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\bin\Newtonsoft.Json.pdb
+C:\Users\matthew.brand\Documents\GitHub\PropertyEvals\PropertyEvaluation\PropertyEval\bin\Newtonsoft.Json.xml
