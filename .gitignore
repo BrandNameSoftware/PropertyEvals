@@ -1,4 +1,6 @@
 config.json
+Web.Release.config
+Web.Debug.config
 
 # Windows image file caches
 Thumbs.db
