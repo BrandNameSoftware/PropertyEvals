@@ -5,8 +5,9 @@ using System.Web;
 
 namespace PropertyEval.DTOs
 {
-    public class ZillowConfig
+    public class WebserviceConfig
     {
         public String ZWSID { get; set; }
+        public String ImportIOEndpoint { get; set; }
     }
 }

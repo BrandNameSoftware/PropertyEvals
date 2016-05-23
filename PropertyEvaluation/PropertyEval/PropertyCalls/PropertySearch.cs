@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PropertyEval.PropertyCalls.ZillowCalls;
+using PropertyEval.PropertyCalls.WebserviceCalls;
 
 namespace PropertyEval.PropertyCalls
 {
@@ -10,8 +10,12 @@ namespace PropertyEval.PropertyCalls
     {
         public static void SearchForProperties()
         {
-            ZillowWSCalls zillow = new ZillowWSCalls();
-            zillow.SearchZillow();
+            PropertyWSCalls wsCalls = new PropertyWSCalls();
+
+            //get a list of properties first
+            wsCalls.GetListOfProperties();
+
+            //get the detailed property info from Zillow. Don't search if above a threshold
         }
     }
 }

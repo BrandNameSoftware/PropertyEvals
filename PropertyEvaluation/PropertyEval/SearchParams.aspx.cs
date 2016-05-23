@@ -12,7 +12,7 @@ namespace PropertyEval
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            PropertySearch.SearchForProperties();
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
