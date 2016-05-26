@@ -30,7 +30,6 @@ namespace PropertyEval.DTOs
         public class Address
         {
             public string text { get; set; }
-            public string href { get; set; }
         }
 
         public class Pagedata
