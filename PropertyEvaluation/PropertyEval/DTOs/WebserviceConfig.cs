@@ -8,6 +8,7 @@ namespace PropertyEval.DTOs
     public class WebserviceConfig
     {
         public String ZWSID { get; set; }
+        public String ZillowSearchByStreetEndpoint { get; set; }
         public String ImportIOEndpoint { get; set; }
     }
 }

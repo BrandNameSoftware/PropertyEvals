@@ -123,6 +123,7 @@
     <Compile Include="DTOs\ImportIOPropertyInfo.cs" />
     <Compile Include="DTOs\PropertyInfo.cs" />
     <Compile Include="DTOs\WebserviceConfig.cs" />
+    <Compile Include="DTOs\ZillowPropertySearchDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

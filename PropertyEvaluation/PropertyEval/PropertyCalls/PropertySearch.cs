@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PropertyEval.PropertyCalls.WebserviceCalls;
+using PropertyEval.DTOs;
 
 namespace PropertyEval.PropertyCalls
 {
@@ -13,9 +14,14 @@ namespace PropertyEval.PropertyCalls
             PropertyWSCalls wsCalls = new PropertyWSCalls();
 
             //get a list of properties first
-            wsCalls.GetListOfProperties();
+            List<String> streetAddresses = wsCalls.GetListOfProperties();
+            List<PropertyInfo> properties = new List<PropertyInfo>();
 
             //get the detailed property info from Zillow. Don't search if above a threshold
+            foreach (String streetAddress in streetAddresses)
+            {
+
+            }
         }
     }
 }

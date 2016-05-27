@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
 using PropertyEval.DTOs;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using PropertyEval.Helpers;
 using System.Web;
+using System.Collections.Generic;
 
 namespace PropertyEval.PropertyCalls.WebserviceCalls
 {
@@ -21,12 +22,32 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             }
         }
 
-        //gets the list of initial properties to evaluate
-        public void GetListOfProperties()
+        //gets the list of initial properties to evaluate. Getting just a list of addresses
+        public List<String> GetListOfProperties()
         {
             String propertiesJSON = WebserviceHelper.CallWS(wsConfig.ImportIOEndpoint, "");
             ImportIOPropertyInfo iioPropertyInfo = JsonConvert.DeserializeObject<ImportIOPropertyInfo>(propertiesJSON);
-            Console.WriteLine("blah");
+
+            List<String> addresses = new List<String>();
+
+            if (iioPropertyInfo.pageData.statusCode == 200)
+            {
+                foreach (ImportIOPropertyInfo.Group group in iioPropertyInfo.extractorData.data[0].group)
+                {
+                    addresses.Add(group.Address[0].text);
+                }
+            }
+
+            return addresses;
+        }
+
+        public List<ZillowPropertySearchDTO> GetPropertyDetails(List<String> streetAddresses)
+        {
+            List<ZillowPropertySearchDTO> zillowProperties = new List<ZillowPropertySearchDTO>();
+
+
+
+            return zillowProperties;
         }
     }
 }
