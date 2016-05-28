@@ -6,6 +6,7 @@ using System.IO;
 using PropertyEval.Helpers;
 using System.Web;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace PropertyEval.PropertyCalls.WebserviceCalls
 {
@@ -45,9 +46,35 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
         {
             List<ZillowPropertySearchDTO> zillowProperties = new List<ZillowPropertySearchDTO>();
 
-
+            foreach (String streetAddress in streetAddresses)
+            {
+                String urlParms = CreateURLParmsFromStreetAddress(streetAddress);
+                String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowSearchByStreetEndpoint, urlParms);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertySearchDTO));
+                ZillowPropertySearchDTO zillowProperty = null;
+                using (var reader = new StringReader(propertiesDetailXML))
+                {
+                    zillowProperty = (ZillowPropertySearchDTO)xmlSerializer.Deserialize(reader);
+                }
+                zillowProperties.Add(zillowProperty);
+            }
 
             return zillowProperties;
+        }
+
+        private String CreateURLParmsFromStreetAddress(String streetAddress)
+        {
+            // sneaky way to get a HttpValueCollection (which is internal)
+            var collection = HttpUtility.ParseQueryString(string.Empty);
+            String street = streetAddress.Substring(0, streetAddress.IndexOf(","));
+            String cityState = streetAddress.Substring(streetAddress.IndexOf(",") + 2);
+
+            collection["zws-id"] = this.wsConfig.ZWSID;
+            collection["address"] = street;
+            collection["citystatezip"] = cityState;
+            collection["rentzestimate"] = "true";
+
+            return collection.ToString();
         }
     }
 }

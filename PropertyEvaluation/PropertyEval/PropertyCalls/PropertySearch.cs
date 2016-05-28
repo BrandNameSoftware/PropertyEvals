@@ -18,10 +18,7 @@ namespace PropertyEval.PropertyCalls
             List<PropertyInfo> properties = new List<PropertyInfo>();
 
             //get the detailed property info from Zillow. Don't search if above a threshold
-            foreach (String streetAddress in streetAddresses)
-            {
-
-            }
+            wsCalls.GetPropertyDetails(streetAddresses);
         }
     }
 }
