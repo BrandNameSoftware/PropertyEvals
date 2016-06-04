@@ -12,11 +12,13 @@ namespace PropertyEval
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            PropertySearch.SearchForProperties();
+            List<String> streetAddresses = new List<string>();
+            streetAddresses.Add("1317 1321 Chestnut St, Colorado Springs, CO 80905");
+            PropertySearch.SearchForProperties(streetAddresses);
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            PropertySearch.SearchForProperties();
+            //PropertySearch.SearchForProperties();
         }
     }
 }

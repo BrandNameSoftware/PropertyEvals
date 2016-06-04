@@ -25,9 +25,42 @@ namespace PropertyEval.DTOs
         public class Group
         {
             public Address[] Address { get; set; }
+            public StreetAddress[] Streetaddress { get; set; }
+            public ZIPCode[] ZIPcode { get; set; }
+            public ListedPrice[] Listedprice { get; set; }
+            public State[] State { get; set; }
+            public City[] City { get; set; }
         }
 
         public class Address
+        {
+            public string text { get; set; }
+            public string href { get; set; }
+        }
+
+        public class StreetAddress
+        {
+            public string text { get; set; }
+            public string href { get; set; }
+        }
+
+        public class ZIPCode
+        {
+            public string text { get; set; }
+            public string href { get; set; }
+        }
+
+        public class ListedPrice
+        {
+            public string text { get; set; }
+        }
+
+        public class State
+        {
+            public string text { get; set; }
+        }
+
+        public class City
         {
             public string text { get; set; }
         }
@@ -37,6 +70,5 @@ namespace PropertyEval.DTOs
             public int statusCode { get; set; }
             public long timestamp { get; set; }
         }
-
     }
 }

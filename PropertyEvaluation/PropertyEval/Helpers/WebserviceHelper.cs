@@ -15,7 +15,9 @@ namespace PropertyEval.Helpers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(endpoint);
+                UriBuilder builder = new UriBuilder(endpoint);
+                builder.Query = urlParams;
+                client.BaseAddress = new Uri(builder.ToString());
 
                 // Add an Accept header for JSON format.
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

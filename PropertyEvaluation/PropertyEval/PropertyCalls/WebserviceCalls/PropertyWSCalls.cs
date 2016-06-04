@@ -7,6 +7,7 @@ using PropertyEval.Helpers;
 using System.Web;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace PropertyEval.PropertyCalls.WebserviceCalls
 {
@@ -31,7 +32,7 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
 
             List<String> addresses = new List<String>();
 
-            if (iioPropertyInfo.pageData.statusCode == 200)
+            if (iioPropertyInfo.pageData.statusCode == 200 && iioPropertyInfo.extractorData.data.Length > 0)
             {
                 foreach (ImportIOPropertyInfo.Group group in iioPropertyInfo.extractorData.data[0].group)
                 {
@@ -42,19 +43,20 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             return addresses;
         }
 
-        public List<ZillowPropertySearchDTO> GetPropertyDetails(List<String> streetAddresses)
+        public List<searchresults> GetZillowPropertyDetails(List<String> streetAddresses)
         {
-            List<ZillowPropertySearchDTO> zillowProperties = new List<ZillowPropertySearchDTO>();
+            List<searchresults> zillowProperties = new List<searchresults>();
 
             foreach (String streetAddress in streetAddresses)
             {
                 String urlParms = CreateURLParmsFromStreetAddress(streetAddress);
                 String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowSearchByStreetEndpoint, urlParms);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertySearchDTO));
-                ZillowPropertySearchDTO zillowProperty = null;
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(searchresults));
+                searchresults zillowProperty = null;
                 using (var reader = new StringReader(propertiesDetailXML))
                 {
-                    zillowProperty = (ZillowPropertySearchDTO)xmlSerializer.Deserialize(reader);
+                    XmlReader xmlReader = XmlReader.Create(reader);
+                    zillowProperty = (searchresults)xmlSerializer.Deserialize(xmlReader);
                 }
                 zillowProperties.Add(zillowProperty);
             }
@@ -64,7 +66,6 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
 
         private String CreateURLParmsFromStreetAddress(String streetAddress)
         {
-            // sneaky way to get a HttpValueCollection (which is internal)
             var collection = HttpUtility.ParseQueryString(string.Empty);
             String street = streetAddress.Substring(0, streetAddress.IndexOf(","));
             String cityState = streetAddress.Substring(streetAddress.IndexOf(",") + 2);
