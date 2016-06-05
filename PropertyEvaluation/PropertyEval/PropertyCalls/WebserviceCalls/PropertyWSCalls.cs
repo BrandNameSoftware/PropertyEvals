@@ -58,7 +58,11 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
                     XmlReader xmlReader = XmlReader.Create(reader);
                     zillowProperty = (searchresults)xmlSerializer.Deserialize(xmlReader);
                 }
-                zillowProperties.Add(zillowProperty);
+
+                if (zillowProperty.message.code == 0)
+                {
+                    zillowProperties.Add(zillowProperty);
+                }
             }
 
             return zillowProperties;
