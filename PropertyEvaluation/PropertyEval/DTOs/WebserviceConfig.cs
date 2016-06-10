@@ -10,5 +10,6 @@ namespace PropertyEval.DTOs
         public String ZWSID { get; set; }
         public String ZillowSearchByStreetEndpoint { get; set; }
         public String ImportIOEndpoint { get; set; }
+        public String ZillowGetDetailPropertyEndpoint { get; set; }
     }
 }

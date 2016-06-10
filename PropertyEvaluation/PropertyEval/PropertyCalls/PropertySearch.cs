@@ -14,21 +14,22 @@ namespace PropertyEval.PropertyCalls
             PropertyWSCalls wsCalls = new PropertyWSCalls();
 
             //get the detailed property info from Zillow
-            List<searchresults> zillowSearchData = wsCalls.GetZillowPropertyDetails(streetAddresses);
+            List<ZillowPropertySearchDTO.searchresults> zillowSearchData = wsCalls.GetZillowPropertyBasicInfo(streetAddresses);
             List<PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
 
-            //Get the listing infor from Zillow
+            //Get the listing info from Zillow
+            wsCalls.GetZillowPropertyDetailInfo(properties);
         }
 
-        private static List<PropertyInfo> MapZillowXMLtoDTO(List<searchresults> zillowSearchData)
+        private static List<PropertyInfo> MapZillowXMLtoDTO(List<ZillowPropertySearchDTO.searchresults> zillowSearchData)
         {
             List<PropertyInfo> properties = new List<PropertyInfo>();
-            foreach (searchresults searchData in zillowSearchData)
+            foreach (ZillowPropertySearchDTO.searchresults searchData in zillowSearchData)
             {
-                responseResultsResult result = searchData.response.results.result;
+                ZillowPropertySearchDTO.responseResultsResult result = searchData.response.results.result;
                 PropertyInfo property = new PropertyInfo();
                 property.city = result.address.city;
-                property.estimateRent = result.rentzestimate.amount.Value;
+                property.estimateRent = (result.rentzestimate == null)? -1 : result.rentzestimate.amount.Value;
                 property.estimateValue = Convert.ToInt32(result.zestimate.amount.Value);
                 property.linkToProperty = new Uri(result.links.homedetails);
                 property.state = result.address.state;

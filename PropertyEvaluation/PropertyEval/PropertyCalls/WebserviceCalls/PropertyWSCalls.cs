@@ -43,20 +43,20 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             return addresses;
         }
 
-        public List<searchresults> GetZillowPropertyDetails(List<String> streetAddresses)
+        public List<ZillowPropertySearchDTO.searchresults> GetZillowPropertyBasicInfo(List<String> streetAddresses)
         {
-            List<searchresults> zillowProperties = new List<searchresults>();
+            List<ZillowPropertySearchDTO.searchresults> zillowProperties = new List<ZillowPropertySearchDTO.searchresults>();
 
             foreach (String streetAddress in streetAddresses)
             {
                 String urlParms = CreateURLParmsFromStreetAddress(streetAddress);
                 String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowSearchByStreetEndpoint, urlParms);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(searchresults));
-                searchresults zillowProperty = null;
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertySearchDTO.searchresults));
+                ZillowPropertySearchDTO.searchresults zillowProperty = null;
                 using (var reader = new StringReader(propertiesDetailXML))
                 {
                     XmlReader xmlReader = XmlReader.Create(reader);
-                    zillowProperty = (searchresults)xmlSerializer.Deserialize(xmlReader);
+                    zillowProperty = (ZillowPropertySearchDTO.searchresults)xmlSerializer.Deserialize(xmlReader);
                 }
 
                 if (zillowProperty.message.code == 0)
@@ -78,6 +78,42 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             collection["address"] = street;
             collection["citystatezip"] = cityState;
             collection["rentzestimate"] = "true";
+
+            return collection.ToString();
+        }
+
+        public Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> GetZillowPropertyDetailInfo(List<PropertyInfo> properties)
+        {
+            Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> detailedProperty = new Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails>();
+
+            //501 code in the message means it's not available
+            foreach (PropertyInfo property in properties)
+            {
+                String urlParms = CreateURLParmsFromProperty(property);
+                String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowGetDetailPropertyEndpoint, urlParms);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertyDetailsDTO.updatedPropertyDetails));
+                ZillowPropertyDetailsDTO.updatedPropertyDetails zillowProperty = null;
+                using (var reader = new StringReader(propertiesDetailXML))
+                {
+                    XmlReader xmlReader = XmlReader.Create(reader);
+                    zillowProperty = (ZillowPropertyDetailsDTO.updatedPropertyDetails)xmlSerializer.Deserialize(xmlReader);
+                }
+
+                if (zillowProperty.message.code == 0)
+                {
+                    detailedProperty.Add(property.zillowPropertyID, zillowProperty);
+                }
+            }
+
+            return detailedProperty;
+        }
+
+        private String CreateURLParmsFromProperty(PropertyInfo property)
+        {
+            var collection = HttpUtility.ParseQueryString(string.Empty);
+
+            collection["zws-id"] = this.wsConfig.ZWSID;
+            collection["zpid"] = property.zillowPropertyID.ToString();
 
             return collection.ToString();
         }
