@@ -143,6 +143,7 @@
     </Content>
     <Content Include="config.json" />
     <Content Include="Google Client Secret.json" />
+    <Content Include="Google Client Secret2.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
