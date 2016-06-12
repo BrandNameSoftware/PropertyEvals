@@ -1,4 +1,5 @@
-﻿using PropertyEval.PropertyCalls;
+﻿using PropertyEval.GoogleSheets;
+using PropertyEval.PropertyCalls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace PropertyEval
             List<String> streetAddresses = new List<string>();
             streetAddresses.Add("13 Royal Crest Dr, Pueblo, CO 81005");
             PropertySearch.SearchForProperties(streetAddresses);
+
+            GoogleSheetAccessor sheet = new GoogleSheetAccessor();
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
