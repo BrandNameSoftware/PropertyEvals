@@ -35,10 +35,10 @@ namespace PropertyEval.PropertyCalls
                     property.askingPrice = (int)details.response.price.Value;
                     property.status = details.response.posting.status;
                 }
-                catch (Exception)
+                catch (KeyNotFoundException knfe)
                 {
 
-                    throw;
+                    //eat the error
                 }
             }
         }
