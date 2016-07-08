@@ -10,6 +10,8 @@ namespace PropertyEval.DTOs
         public int zillowPropertyID { get; set; }
         public int estimateValue { get; set; }
         public int estimateRent { get; set; }
+        public int askingPrice { get; set; }
+        public string status { get; set; }
         public String streetAddress { get; set; }
         public int ZIP { get; set; }
         public String state { get; set; }

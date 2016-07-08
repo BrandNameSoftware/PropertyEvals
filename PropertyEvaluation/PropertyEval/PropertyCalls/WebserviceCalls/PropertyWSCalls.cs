@@ -89,19 +89,28 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             //501 code in the message means it's not available
             foreach (PropertyInfo property in properties)
             {
-                String urlParms = CreateURLParmsFromProperty(property);
-                String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowGetDetailPropertyEndpoint, urlParms);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertyDetailsDTO.updatedPropertyDetails));
-                ZillowPropertyDetailsDTO.updatedPropertyDetails zillowProperty = null;
-                using (var reader = new StringReader(propertiesDetailXML))
+                try
                 {
-                    XmlReader xmlReader = XmlReader.Create(reader);
-                    zillowProperty = (ZillowPropertyDetailsDTO.updatedPropertyDetails)xmlSerializer.Deserialize(xmlReader);
+                    String urlParms = CreateURLParmsFromProperty(property);
+                    String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowGetDetailPropertyEndpoint, urlParms);
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertyDetailsDTO.updatedPropertyDetails));
+                    ZillowPropertyDetailsDTO.updatedPropertyDetails zillowProperty = null;
+                    using (var reader = new StringReader(propertiesDetailXML))
+                    {
+                        XmlReader xmlReader = XmlReader.Create(reader);
+                        zillowProperty = (ZillowPropertyDetailsDTO.updatedPropertyDetails)xmlSerializer.Deserialize(xmlReader);
+                    }
+
+                    if (zillowProperty.message.code == 0)
+                    {
+                        detailedProperty.Add(property.zillowPropertyID, zillowProperty);
+                    }
                 }
 
-                if (zillowProperty.message.code == 0)
+                catch (Exception e)
                 {
-                    detailedProperty.Add(property.zillowPropertyID, zillowProperty);
+                    //eat the exception. All that will happen is the data won't get populated
+                    Console.WriteLine(e.ToString());
                 }
             }
 

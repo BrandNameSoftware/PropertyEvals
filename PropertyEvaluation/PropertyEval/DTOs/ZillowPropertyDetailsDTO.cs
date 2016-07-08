@@ -263,12 +263,12 @@ namespace PropertyEval.DTOs
         public partial class responsePageViewCount
         {
 
-            private byte currentMonthField;
+            private int currentMonthField;
 
-            private byte totalField;
+            private int totalField;
 
             /// <remarks/>
-            public byte currentMonth
+            public int currentMonth
             {
                 get
                 {
@@ -281,7 +281,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public byte total
+            public int total
             {
                 get
                 {

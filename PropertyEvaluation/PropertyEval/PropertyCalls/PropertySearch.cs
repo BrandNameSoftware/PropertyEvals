@@ -9,16 +9,38 @@ namespace PropertyEval.PropertyCalls
 {
     public class PropertySearch
     {
-        public static void SearchForProperties(List<String> streetAddresses)
+        public static List<PropertyInfo> SearchForProperties(List<String> streetAddresses)
         {
             PropertyWSCalls wsCalls = new PropertyWSCalls();
 
             //get the detailed property info from Zillow
             List<ZillowPropertySearchDTO.searchresults> zillowSearchData = wsCalls.GetZillowPropertyBasicInfo(streetAddresses);
             List<PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
-
+            
             //Get the listing info from Zillow
-            wsCalls.GetZillowPropertyDetailInfo(properties);
+            Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails = wsCalls.GetZillowPropertyDetailInfo(properties);
+
+            AddDetailInfoToPropertyInfo(propDetails, properties);
+
+            return properties;
+        }
+
+        private static void AddDetailInfoToPropertyInfo(Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails, List<PropertyInfo> properties)
+        {
+            foreach (PropertyInfo property in properties)
+            {
+                try
+                {
+                    ZillowPropertyDetailsDTO.updatedPropertyDetails details = propDetails[property.zillowPropertyID];
+                    property.askingPrice = (int)details.response.price.Value;
+                    property.status = details.response.posting.status;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
 
         private static List<PropertyInfo> MapZillowXMLtoDTO(List<ZillowPropertySearchDTO.searchresults> zillowSearchData)
