@@ -8,12 +8,12 @@ namespace PropertyEval.DTOs
     public class PropertyInfo
     {
         public int zillowPropertyID { get; set; }
-        public int estimateValue { get; set; }
-        public int estimateRent { get; set; }
-        public int askingPrice { get; set; }
+        public int? estimateValue { get; set; }
+        public int? estimateRent { get; set; }
+        public int? askingPrice { get; set; }
         public string status { get; set; }
         public String streetAddress { get; set; }
-        public int ZIP { get; set; }
+        public int? ZIP { get; set; }
         public String state { get; set; }
         public String city { get; set; }
         public Uri linkToProperty { get; set; }
@@ -22,8 +22,10 @@ namespace PropertyEval.DTOs
         public struct NeighborhoodInfo
         {
             public String regionName { get; set; }
-            public int regionID { get; set; }
-            public int zillowRegionIndex { get; set; }
+            public int? regionID { get; set; }
+            public int? zillowRegionIndex { get; set; }
         }
+
+        public String description { get; set; }
     }
 }

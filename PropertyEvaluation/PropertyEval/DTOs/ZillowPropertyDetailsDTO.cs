@@ -151,6 +151,8 @@ namespace PropertyEval.DTOs
 
             private responseEditedFacts editedFactsField;
 
+            private string homeDescriptionField;
+
             /// <remarks/>
             public uint zpid
             {
@@ -161,6 +163,19 @@ namespace PropertyEval.DTOs
                 set
                 {
                     this.zpidField = value;
+                }
+            }
+
+            /// <remarks/>
+            public string homeDescription
+            {
+                get
+                {
+                    return this.homeDescriptionField;
+                }
+                set
+                {
+                    this.homeDescriptionField = value;
                 }
             }
 

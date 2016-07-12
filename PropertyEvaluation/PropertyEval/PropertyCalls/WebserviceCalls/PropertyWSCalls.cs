@@ -82,12 +82,12 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
             return collection.ToString();
         }
 
-        public Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> GetZillowPropertyDetailInfo(List<PropertyInfo> properties)
+        public List<ZillowPropertyDetailsDTO.updatedPropertyDetails> GetZillowPropertyDetailInfo(Dictionary<int, PropertyInfo> properties)
         {
-            Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> detailedProperty = new Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails>();
+            List<ZillowPropertyDetailsDTO.updatedPropertyDetails> detailedProperty = new List<ZillowPropertyDetailsDTO.updatedPropertyDetails>();
 
             //501 code in the message means it's not available
-            foreach (PropertyInfo property in properties)
+            foreach (PropertyInfo property in properties.Values)
             {
                 try
                 {
@@ -103,7 +103,7 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
 
                     if (zillowProperty.message.code == 0)
                     {
-                        detailedProperty.Add(property.zillowPropertyID, zillowProperty);
+                        detailedProperty.Add(zillowProperty);
                     }
                 }
 

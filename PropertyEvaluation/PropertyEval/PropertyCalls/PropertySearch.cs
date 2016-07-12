@@ -9,33 +9,34 @@ namespace PropertyEval.PropertyCalls
 {
     public class PropertySearch
     {
-        public static List<PropertyInfo> SearchForProperties(List<String> streetAddresses)
+        public static Dictionary<int, PropertyInfo> SearchForProperties(List<String> streetAddresses)
         {
             PropertyWSCalls wsCalls = new PropertyWSCalls();
 
             //get the detailed property info from Zillow
             List<ZillowPropertySearchDTO.searchresults> zillowSearchData = wsCalls.GetZillowPropertyBasicInfo(streetAddresses);
-            List<PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
+
+            Dictionary<int, PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
             
             //Get the listing info from Zillow
-            Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails = wsCalls.GetZillowPropertyDetailInfo(properties);
+            List<ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails = wsCalls.GetZillowPropertyDetailInfo(properties);
 
-            AddDetailInfoToPropertyInfo(propDetails, properties);
+            UpdateZillowDataWithDetails(properties, propDetails);
 
             return properties;
         }
 
-        private static void AddDetailInfoToPropertyInfo(Dictionary<int, ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails, List<PropertyInfo> properties)
+        private static void UpdateZillowDataWithDetails(Dictionary<int, PropertyInfo> properties, List<ZillowPropertyDetailsDTO.updatedPropertyDetails> additionalDetails)
         {
-            foreach (PropertyInfo property in properties)
+            foreach (ZillowPropertyDetailsDTO.updatedPropertyDetails details in additionalDetails)
             {
                 try
                 {
-                    ZillowPropertyDetailsDTO.updatedPropertyDetails details = propDetails[property.zillowPropertyID];
-                    property.askingPrice = (int)details.response.price.Value;
-                    property.status = details.response.posting.status;
+                    int zpid = (int)details.response.zpid;
+                    properties[zpid].askingPrice = (details.response.price == null) ? null : (int?)details.response.price.Value;
+                    properties[zpid].description = (String)details.response.homeDescription;
                 }
-                catch (KeyNotFoundException knfe)
+                    catch (KeyNotFoundException knfe)
                 {
 
                     //eat the error
@@ -43,15 +44,15 @@ namespace PropertyEval.PropertyCalls
             }
         }
 
-        private static List<PropertyInfo> MapZillowXMLtoDTO(List<ZillowPropertySearchDTO.searchresults> zillowSearchData)
+        private static Dictionary<int, PropertyInfo> MapZillowXMLtoDTO(List<ZillowPropertySearchDTO.searchresults> zillowSearchData)
         {
-            List<PropertyInfo> properties = new List<PropertyInfo>();
+            Dictionary<int, PropertyInfo> properties = new Dictionary<int, PropertyInfo>();
             foreach (ZillowPropertySearchDTO.searchresults searchData in zillowSearchData)
             {
                 ZillowPropertySearchDTO.responseResultsResult result = searchData.response.results.result;
                 PropertyInfo property = new PropertyInfo();
                 property.city = result.address.city;
-                property.estimateRent = (result.rentzestimate == null)? -1 : result.rentzestimate.amount.Value;
+                property.estimateRent = (result.rentzestimate == null)? null : (int?)result.rentzestimate.amount.Value;
                 property.estimateValue = Convert.ToInt32(result.zestimate.amount.Value);
                 property.linkToProperty = new Uri(result.links.homedetails);
                 property.state = result.address.state;
@@ -65,7 +66,7 @@ namespace PropertyEval.PropertyCalls
                 neighborhoodInfo.zillowRegionIndex = Convert.ToInt32(result.localRealEstate.region.zindexValue.Replace(",", ""));
                 property.neighborhoodInfo = neighborhoodInfo;
 
-                properties.Add(property);
+                properties.Add(property.zillowPropertyID, property);
             }
             return properties;
         }
