@@ -9,26 +9,38 @@ namespace PropertyEval.PropertyCalls
 {
     public class PropertySearch
     {
-        public static void SearchForProperties(List<String> streetAddresses)
+        public static Dictionary<int, PropertyInfo> SearchForProperties(List<String> streetAddresses)
         {
             PropertyWSCalls wsCalls = new PropertyWSCalls();
 
             //get the detailed property info from Zillow
             List<ZillowPropertySearchDTO.searchresults> zillowSearchData = wsCalls.GetZillowPropertyBasicInfo(streetAddresses);
-            Dictionary<int, PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
 
+            Dictionary<int, PropertyInfo> properties = MapZillowXMLtoDTO(zillowSearchData);
+            
             //Get the listing info from Zillow
-            List<ZillowPropertyDetailsDTO.updatedPropertyDetails> additionalDetails = wsCalls.GetZillowPropertyDetailInfo(properties);
-            UpdateZillowDataWithDetails(properties, additionalDetails);
+            List<ZillowPropertyDetailsDTO.updatedPropertyDetails> propDetails = wsCalls.GetZillowPropertyDetailInfo(properties);
+
+            UpdateZillowDataWithDetails(properties, propDetails);
+
+            return properties;
         }
 
         private static void UpdateZillowDataWithDetails(Dictionary<int, PropertyInfo> properties, List<ZillowPropertyDetailsDTO.updatedPropertyDetails> additionalDetails)
         {
             foreach (ZillowPropertyDetailsDTO.updatedPropertyDetails details in additionalDetails)
             {
-                int zpid = (int)details.response.zpid;
-                properties[zpid].askingPrice = (details.response.price == null) ? null : (int?)details.response.price.Value;
-                properties[zpid].description = (String)details.response.homeDescription;
+                try
+                {
+                    int zpid = (int)details.response.zpid;
+                    properties[zpid].askingPrice = (details.response.price == null) ? null : (int?)details.response.price.Value;
+                    properties[zpid].description = (String)details.response.homeDescription;
+                }
+                    catch (KeyNotFoundException knfe)
+                {
+
+                    //eat the error
+                }
             }
         }
 
