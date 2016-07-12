@@ -302,3 +302,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+PropertyEvaluation/PropertyEval/Google Client Secret.json
+PropertyEvaluation/PropertyEval/Google Client Secret2.json
