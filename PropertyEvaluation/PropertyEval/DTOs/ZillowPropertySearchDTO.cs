@@ -958,7 +958,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private ushort valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -976,7 +976,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public ushort Value
+            public int Value
             {
                 get
                 {
@@ -1116,7 +1116,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private ushort valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1134,7 +1134,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public ushort Value
+            public int Value
             {
                 get
                 {
@@ -1156,7 +1156,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private ushort valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1174,7 +1174,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public ushort Value
+            public int Value
             {
                 get
                 {
