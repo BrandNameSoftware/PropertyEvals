@@ -142,8 +142,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="config.json" />
-    <Content Include="Google Client Secret.json" />
-    <Content Include="Google Client Secret2.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -167,7 +165,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GoogleSheets\GoogleSheets.cs" />
     <Compile Include="Helpers\WebserviceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyCalls\WebserviceCalls\PropertyWSCalls.cs" />
