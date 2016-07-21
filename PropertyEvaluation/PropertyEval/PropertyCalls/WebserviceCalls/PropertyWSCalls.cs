@@ -53,13 +53,23 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
                 String propertiesDetailXML = WebserviceHelper.CallWS(wsConfig.ZillowSearchByStreetEndpoint, urlParms);
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(ZillowPropertySearchDTO.searchresults));
                 ZillowPropertySearchDTO.searchresults zillowProperty = null;
-                using (var reader = new StringReader(propertiesDetailXML))
+                if (propertiesDetailXML.Contains("Error"))
                 {
-                    XmlReader xmlReader = XmlReader.Create(reader);
-                    zillowProperty = (ZillowPropertySearchDTO.searchresults)xmlSerializer.Deserialize(xmlReader);
+                    zillowProperty = new ZillowPropertySearchDTO.searchresults();
+                    zillowProperty.message.text = "Error";
+                    zillowProperty.message.code = 99;
+                    zillowProperty.response.results.result.address.street = streetAddress;
+                }
+                else
+                {
+                    using (var reader = new StringReader(propertiesDetailXML))
+                    {
+                        XmlReader xmlReader = XmlReader.Create(reader);
+                        zillowProperty = (ZillowPropertySearchDTO.searchresults)xmlSerializer.Deserialize(xmlReader);
+                    }
                 }
 
-                if (zillowProperty.message.code == 0)
+                if (zillowProperty.message.code == 0 || zillowProperty.message.code == 99)
                 {
                     zillowProperties.Add(zillowProperty);
                 }
@@ -72,7 +82,7 @@ namespace PropertyEval.PropertyCalls.WebserviceCalls
         {
             var collection = HttpUtility.ParseQueryString(string.Empty);
             String street = streetAddress.Substring(0, streetAddress.IndexOf(","));
-            String cityState = streetAddress.Substring(streetAddress.IndexOf(",") + 2);
+            String cityState = streetAddress.Substring(streetAddress.IndexOf(",") + 1);
 
             collection["zws-id"] = this.wsConfig.ZWSID;
             collection["address"] = street;

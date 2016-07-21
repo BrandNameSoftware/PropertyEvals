@@ -113,7 +113,7 @@ namespace PropertyEval.DTOs
 
             private string textField;
 
-            private byte codeField;
+            private int codeField;
 
             /// <remarks/>
             public string text
@@ -129,7 +129,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public byte code
+            public int code
             {
                 get
                 {
@@ -196,7 +196,7 @@ namespace PropertyEval.DTOs
         public partial class responseResultsResult
         {
 
-            private uint zpidField;
+            private int zpidField;
 
             private responseResultsResultLinks linksField;
 
@@ -206,13 +206,13 @@ namespace PropertyEval.DTOs
 
             private string useCodeField;
 
-            private ushort yearBuiltField;
+            private uint yearBuiltField;
 
-            private ushort lotSizeSqFtField;
+            private uint lotSizeSqFtField;
 
-            private ushort finishedSqFtField;
+            private uint finishedSqFtField;
 
-            private byte bedroomsField;
+            private int bedroomsField;
 
             private responseResultsResultZestimate zestimateField;
 
@@ -221,7 +221,7 @@ namespace PropertyEval.DTOs
             private responseResultsResultLocalRealEstate localRealEstateField;
 
             /// <remarks/>
-            public uint zpid
+            public int zpid
             {
                 get
                 {
@@ -286,7 +286,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public ushort yearBuilt
+            public uint yearBuilt
             {
                 get
                 {
@@ -299,7 +299,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public ushort lotSizeSqFt
+            public uint lotSizeSqFt
             {
                 get
                 {
@@ -312,7 +312,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public ushort finishedSqFt
+            public uint finishedSqFt
             {
                 get
                 {
@@ -325,7 +325,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public byte bedrooms
+            public int bedrooms
             {
                 get
                 {
@@ -439,7 +439,7 @@ namespace PropertyEval.DTOs
 
             private string streetField;
 
-            private uint zipcodeField;
+            private int zipcodeField;
 
             private string cityField;
 
@@ -463,7 +463,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public uint zipcode
+            public int zipcode
             {
                 get
                 {
@@ -545,7 +545,7 @@ namespace PropertyEval.DTOs
 
             private responseResultsResultZestimateValuationRange valuationRangeField;
 
-            private byte percentileField;
+            private int percentileField;
 
             /// <remarks/>
             public responseResultsResultZestimateAmount amount
@@ -614,7 +614,7 @@ namespace PropertyEval.DTOs
             }
 
             /// <remarks/>
-            public byte percentile
+            public int percentile
             {
                 get
                 {
@@ -636,7 +636,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private uint valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -654,7 +654,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public uint Value
+            public int Value
             {
                 get
                 {
@@ -698,15 +698,15 @@ namespace PropertyEval.DTOs
         public partial class responseResultsResultZestimateValueChange
         {
 
-            private byte durationField;
+            private int durationField;
 
             private string currencyField;
 
-            private short valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte duration
+            public int duration
             {
                 get
                 {
@@ -734,7 +734,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public short Value
+            public int Value
             {
                 get
                 {
@@ -794,7 +794,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private uint valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -812,7 +812,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public uint Value
+            public int Value
             {
                 get
                 {
@@ -834,7 +834,7 @@ namespace PropertyEval.DTOs
 
             private string currencyField;
 
-            private uint valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -852,7 +852,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public uint Value
+            public int Value
             {
                 get
                 {
@@ -1020,15 +1020,15 @@ namespace PropertyEval.DTOs
         public partial class responseResultsResultRentzestimateValueChange
         {
 
-            private byte durationField;
+            private int durationField;
 
             private string currencyField;
 
-            private sbyte valueField;
+            private int valueField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte duration
+            public int duration
             {
                 get
                 {
@@ -1056,7 +1056,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlTextAttribute()]
-            public sbyte Value
+            public int Value
             {
                 get
                 {
@@ -1223,7 +1223,7 @@ namespace PropertyEval.DTOs
 
             private string nameField;
 
-            private uint idField;
+            private int idField;
 
             private string typeField;
 
@@ -1269,7 +1269,7 @@ namespace PropertyEval.DTOs
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public uint id
+            public int id
             {
                 get
                 {
