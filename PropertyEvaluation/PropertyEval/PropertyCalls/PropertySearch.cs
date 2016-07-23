@@ -35,7 +35,7 @@ namespace PropertyEval.PropertyCalls
                     int zpid = (int)details.response.zpid;
                     properties[zpid].askingPrice = (details.response.price == null) ? null : (int?)details.response.price.Value;
                     properties[zpid].description = (String)details.response.homeDescription;
-                    properties[zpid].status = details.response.posting.status;
+                    properties[zpid].status = (details.response.posting == null) ? null : details.response.posting.status;
                 }
                     catch (KeyNotFoundException knfe)
                 {
